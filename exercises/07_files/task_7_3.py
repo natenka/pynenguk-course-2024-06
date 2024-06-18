@@ -17,3 +17,8 @@ MAC-адреса, має бути оброблений таким чином, щ
 1000     0a4b.c380.7d00      Gi0/9
 
 """
+
+with open("CAM_table.txt") as f:
+    for line in f:
+        if "DYNAMIC" in line:
+            print(line.rstrip())

@@ -63,6 +63,7 @@ interface Ethernet0/0
  description To PE_r3 Ethernet0/0
  bandwidth 100000
  ip address 10.0.13.1 255.255.255.0
+ ip address 10.255.13.1 255.255.255.0
  mpls traffic-eng tunnels
  ip rsvp bandwidth 100000 10000
 !
