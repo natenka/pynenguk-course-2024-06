@@ -35,17 +35,25 @@ sw2_dhcp_snooping.txt, sw3_dhcp_snooping.txt.
 
 from glob import glob
 import re
+import csv
 
 def write_dhcp_snooping_to_csv(filenames, output):
 	regex = r"(\S+) +(\S+) +\d+ +\S+ +(\d+) +(\S+)"
 	headers = "switch,mac,ip,vlan,interface".split(",")
-	for file_n in filenames:
-		with open(file_n) as f:
-			for line in f:
-				m = re.search(regex, line)
-				if m:
-					print(m.groups())
-#     with open(output, "w", newline="") as dest:
+
+	with open(output, "w", newline="") as dest:
+		wr = csv.writer(dest)
+		wr.writerow(headers)
+
+		for file_n in filenames:
+			hostname = file_n.split("_")[0]
+			with open(file_n) as f:
+				for line in f:
+					m = re.search(regex, line)
+					if m:
+						wr.writerow([hostname, *m.groups()])
+
+
 
 files = glob("sw*")
 # ['sw1_dhcp_snooping.txt', 'sw2_dhcp_snooping.txt', 'sw3_dhcp_snooping.txt']
